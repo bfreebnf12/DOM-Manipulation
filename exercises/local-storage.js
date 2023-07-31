@@ -38,3 +38,52 @@
  */
 
 // Your code goes here...
+const items = document.querySelectorAll('.card');
+console.log(items)
+const container = document.querySelector('.cardsContainer')
+
+items.forEach(item => {
+    const itemId = item.id;
+    const isFavorite = localStorage.getItem(itemId);
+
+    if (isFavorite === 'true') {
+        item.style.backgroundColor = 'red';
+    } else {
+        item.style.backgroundColor = 'white';
+    }
+
+    item.addEventListener('click', () => {
+        toggleFavorite(itemId);
+    });
+});
+
+const addToFavorites = (itemId) => {
+    localStorage.setItem(itemId, 'true');
+};
+
+const removeFromFavorites = (itemId) => {
+    localStorage.removeItem(itemId);
+};
+
+const toggleFavorite = (itemId) => {
+    const item = document.getElementById(itemId);
+    if (item) {
+        if (localStorage.getItem(itemId)) {
+            item.style.backgroundColor = 'white';
+            removeFromFavorites(itemId);
+        } else {
+            item.style.backgroundColor = 'red';
+            addToFavorites(itemId);
+        }
+    }
+};
+
+const targetClass = 'card';
+
+container.addEventListener('click', (event) => {
+    const target = event.target;
+    console.log(target)
+    if (target.classList.contains(targetClass)) {
+        toggleFavorite(target.id);
+    }
+});

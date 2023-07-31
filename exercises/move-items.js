@@ -2,7 +2,7 @@
  * SORTING NODES WITHIN A CONTAINER
  * Please, make sure to read the following files in the exercises-info folder before you start
  * * 01 SelectNodes.md
-*/
+ */
 
 /**
  * @task
@@ -12,7 +12,7 @@
  */
 
 // Your code goes here...
-
+const allItems = document.querySelectorAll('.item');
 
 
 /**
@@ -23,7 +23,7 @@
  * */
 
 // Your code goes here
-
+const main = document.getElementById('main');
 
 
 /**
@@ -34,7 +34,7 @@
  */
 
 // Your code goes here
-
+const favs = document.getElementById('favs');
 
 
 /**
@@ -47,7 +47,30 @@
  */
 
 // Your code goes here
+const updateCollections = (id, direction) => {
+    const item = document.getElementById(`${id}`);
 
+    if (!item) {
+        console.error(`Item with id "item${id}" not found.`);
+        return;
+    }
+
+    if (direction === 'toMain') {
+        // Move item from favs to main
+        const main = document.getElementById('main');
+        main.appendChild(item);
+        item.classList.remove('fa-heart-crack');
+        item.classList.add('fa-heart-circle-plus');
+    } else if (direction === 'toFavs') {
+        // Move item from main to favs
+        const favs = document.getElementById('favs');
+        favs.appendChild(item);
+        item.classList.remove('fa-heart-circle-plus');
+        item.classList.add('fa-heart-crack');
+    } else {
+        console.error(`Invalid direction: ${direction}. Use 'toMain' or 'toFavs'.`);
+    }
+};
 
 
 /**
@@ -66,4 +89,21 @@
 
 // Your code goes here...
 
+allItems.forEach((item) => {
+    item.addEventListener('click', () => {
+        const parentID = item.parentElement.id;
+        const itemID = parseInt(item.id.replace('item', ''));
+        let direction;
 
+        if (parentID === 'main') {
+            direction = 'toFavs';
+        } else if (parentID === 'favs') {
+            direction = 'toMain';
+        } else {
+            console.error(`Invalid parent id: ${parentID}.`);
+            return;
+        }
+
+        updateCollections(itemID, direction);
+    });
+});

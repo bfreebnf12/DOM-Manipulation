@@ -35,8 +35,8 @@ const newArr = Array.from(nodeList);
 
 // Create a sorting function ('desc' || 'Z-A')
 const sortCB = (a, b) => {
-  if (a.innerHtml < b.innerHtml) return 1;
-  else if (a.innerHtml > b.innerHtml) return -1;
+  if (a.innerHTML < b.innerHTML) return 1;
+  else if (a.innerHTML > b.innerHTML) return -1;
   else return 0;
 }
 
@@ -45,7 +45,7 @@ newArr.sort(sortCB);
 
 // Append every child of the sorted array back to the parent Node of the nodeList.
 newArr.forEach((item) => {
-  container.append(item);
+  parentContainer.append(item); // Use parentContainer instead of container
 });
 ```
 

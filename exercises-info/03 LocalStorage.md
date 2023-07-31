@@ -65,7 +65,8 @@ const itemToDelete = "Tom";
 const storageArr = localStorage.getItem("MyList").split(',');
 
 // Delete tom from the array
-storageArr.splice(storageArr.indexOf(itemToDelete), 1).join(',');
+storageArr.splice(storageArr.indexOf(itemToDelete), 1);
+localStorage.setItem("MyList", storageArr.join(','));
 
 // Set the new value of the storage property
 localStorage.setItem("MyList", storageArr);
@@ -80,7 +81,7 @@ In the previous example you've learned how to manipulate a storage property valu
 ```JS
 // Create an object that keeps the data we want to store in localStorage
 const data = {
-  items: [1, 2, 3];
+  items: [1, 2, 3],
 }
 
 // Store data in the 'favorites' property of localStorage
