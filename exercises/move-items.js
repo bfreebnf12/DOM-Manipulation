@@ -48,30 +48,31 @@ const favs = document.getElementById('favs');
 
 // Your code goes here
 const updateCollections = (id, direction) => {
-    const item = document.getElementById(`${id}`);
+    const item = document.getElementById(id); // Remove the string interpolation here
 
     if (!item) {
-        console.error(`Item with id "item${id}" not found.`);
+        console.error(`Item with id "${id}" not found.`);
         return;
     }
+
+    const icon = item.children[0];
 
     if (direction === 'toMain') {
         // Move item from favs to main
         const main = document.getElementById('main');
         main.appendChild(item);
-        item.classList.remove('fa-heart-crack');
-        item.classList.add('fa-heart-circle-plus');
+        icon.classList.remove('fa-heart-crack');
+        icon.classList.add('fa-heart-circle-plus');
     } else if (direction === 'toFavs') {
         // Move item from main to favs
         const favs = document.getElementById('favs');
         favs.appendChild(item);
-        item.classList.remove('fa-heart-circle-plus');
-        item.classList.add('fa-heart-crack');
+        icon.classList.remove('fa-heart-circle-plus');
+        icon.classList.add('fa-heart-crack');
     } else {
         console.error(`Invalid direction: ${direction}. Use 'toMain' or 'toFavs'.`);
     }
 };
-
 
 /**
  * @task
